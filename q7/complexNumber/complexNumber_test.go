@@ -134,3 +134,22 @@ func TestMultiplication(t *testing.T) {
 		t.Errorf("Not matched multiplication. res: %v, exp: %v", res, exp)
 	}
 }
+
+func TestIsEqual(t *testing.T) {
+	const (
+		real      float64 = 1
+		imaginary float64 = 2
+	)
+
+	cNum, _ := NewComplexNumber(real, imaginary)
+
+	compare := &complexNumber{
+		real:      real,
+		imaginary: imaginary,
+	}
+
+	if cNum.IsEqual(compare) == false {
+		t.Errorf("Not matched IsEqual. cNum: %v, compare: %v", cNum, compare)
+	}
+
+}
