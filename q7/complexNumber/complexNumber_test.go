@@ -22,6 +22,20 @@ func TestNewComplexNumber(t *testing.T) {
 	}
 }
 
+func TestGetNumber(t *testing.T) {
+	const (
+		real      float64 = 1
+		imaginary float64 = 2
+	)
+	cNum, _ := NewComplexNumber(real, imaginary)
+
+	complex := cNum.GetNumber()
+
+	if complex.real != real || complex.imaginary != imaginary {
+		t.Errorf("Not matched complex number. cNum: %v, complex: %v", cNum, complex)
+	}
+}
+
 func TestGetNumbers(t *testing.T) {
 	const (
 		real      float64 = 1
