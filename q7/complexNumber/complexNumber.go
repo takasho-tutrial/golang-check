@@ -7,8 +7,10 @@ import (
 type (
 	// ComplexNumber is complex number
 	ComplexNumber interface {
+		GetNumber() *complexNumber
 		GetReal() float64
 		GetImaginary() float64
+
 		GetNorm() float64
 		GetAngle() float64
 
@@ -30,6 +32,13 @@ func NewComplexNumber(real, imaginary float64) (ComplexNumber, error) {
 		real:      real,
 		imaginary: imaginary,
 	}, nil
+}
+
+func (cNum *complexNumber) GetNumber() *complexNumber {
+	return &complexNumber{
+		real:      cNum.real,
+		imaginary: cNum.imaginary,
+	}
 }
 
 func (cNum *complexNumber) GetReal() float64 {
