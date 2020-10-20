@@ -1,10 +1,11 @@
-package complexNumber
+package complexnumber
 
 import (
 	"math"
 )
 
 type (
+	// ComplexNumber is complex number
 	ComplexNumber interface {
 		GetReal() float64
 		GetImaginary() float64
@@ -19,6 +20,7 @@ type (
 	}
 )
 
+// NewComplexNumber is a function return ComplexNumber interface
 func NewComplexNumber(real, imaginary float64) (ComplexNumber, error) {
 	return &complexNumber{
 		real:      real,
