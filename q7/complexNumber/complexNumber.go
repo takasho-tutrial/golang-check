@@ -9,9 +9,13 @@ type (
 		GetReal() float64
 		GetImaginary() float64
 		GetNorm() float64
-		Addition(real, imaginary float64) ComplexNumber
 		GetAngle() float64
-		Multiplication(c, d float64) ComplexNumber
+
+		Addition(arg *complexNumber) ComplexNumber
+		Subtraction(arg *complexNumber) ComplexNumber
+		Multiplication(arg *complexNumber) ComplexNumber
+
+		IsEqual(arg *complexNumber) bool
 	}
 	complexNumber struct {
 		real      float64
@@ -42,10 +46,17 @@ func (cNum *complexNumber) GetNorm() float64 {
 	return math.Sqrt(real*real + imaginary*imaginary)
 }
 
-func (cNum *complexNumber) Addition(real, imaginary float64) ComplexNumber {
+func (cNum *complexNumber) Addition(arg *complexNumber) ComplexNumber {
 	return &complexNumber{
-		real:      cNum.real + real,
-		imaginary: cNum.imaginary + imaginary,
+		real:      cNum.real + arg.real,
+		imaginary: cNum.imaginary + arg.imaginary,
+	}
+}
+
+func (cNum *complexNumber) Subtraction(arg *complexNumber) ComplexNumber {
+	return &complexNumber{
+		real:      cNum.real - arg.real,
+		imaginary: cNum.imaginary - arg.imaginary,
 	}
 }
 
@@ -62,21 +73,27 @@ func (cNum *complexNumber) GetAngle() float64 {
 	if isPosiR && isPosiI {
 		return angleAns
 	} else if !isPosiR && isPosiI {
-		return -angleAns + 90
+		return 180 - angleAns
 	} else if !isPosiR && !isPosiI {
-		return angleAns + 180
+		return 270 - angleAns
 	} else {
-		return -angleAns + 270
+		return 360 - angleAns
 	}
 }
 
-func (cNum *complexNumber) Multiplication(c, d float64) ComplexNumber {
+func (cNum *complexNumber) Multiplication(arg *complexNumber) ComplexNumber {
 	var (
 		a float64 = cNum.real
 		b float64 = cNum.imaginary
+		c float64 = arg.real
+		d float64 = arg.imaginary
 	)
 	return &complexNumber{
 		real:      a*c - b*d,
 		imaginary: a*d + b*c,
 	}
+}
+
+func (cNum *complexNumber) IsEqual(arg *complexNumber) bool {
+	return arg.Subtraction(cNum).GetNorm() == 0
 }
