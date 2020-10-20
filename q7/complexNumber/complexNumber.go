@@ -1,4 +1,4 @@
-package complexnumber
+package complexNumber
 
 import (
 	"math"
